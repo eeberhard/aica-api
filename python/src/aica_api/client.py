@@ -1,26 +1,25 @@
-import requests
 from typing import Union, List
+
+import requests
+
+from aica_api.ws_client import WebsocketSyncClient
 
 
 class AICA:
     """
-    API client for AICA applications
+    API client for AICA applications.
     """
 
     # noinspection HttpUrlsUsage
-    def __init__(self, url: str = 'localhost', port: Union[str, int] = '5000', ws_port: Union[str, int] = '80'):
+    def __init__(self, url: str = 'localhost', port: Union[str, int] = '5000'):
         """
         Construct the API client with the address of the AICA application.
 
         :param url: The IP address of the AICA application
         :param port: The API port for HTTP REST endpoints (default 5000)
-        :param ws_port: The API port for websocket communication (default 80)
         """
         if not isinstance(port, int):
             port = int(port)
-
-        if not isinstance(ws_port, int):
-            ws_port = int(ws_port)
 
         if url.startswith('http://'):
             self._address = f'{url}:{port}'
@@ -28,7 +27,7 @@ class AICA:
             raise ValueError(f'Invalid URL format {url}')
         else:
             self._address = f'http://{url}:{port}'
-            self._ws_address = f'ws://{url}:{ws_port}'
+            self._ws_address = f'ws://{url}:{port}'
 
     def _endpoint(self, endpoint=''):
         """
@@ -38,6 +37,15 @@ class AICA:
         :return: The constructed request address
         """
         return f'{self._address}/{endpoint}'
+
+    def _ws_endpoint(self, endpoint=''):
+        """
+        Build the connection address for a given websocket endpoint.
+
+        :param endpoint: The websocket endpoint
+        :return: The constructed connection address
+        """
+        return f'{self._ws_address}/{endpoint}'
 
     def check(self) -> requests.Response:
         """
@@ -129,9 +137,18 @@ class AICA:
         """
         return requests.post(self._endpoint('stop_application'))
 
-    def switch_controllers(self, interface_name: str, start: List[str], stop: List[str]) -> requests.Response:
+    def switch_controllers(self, interface_name: str, start: Union[None, List[str]] = None,
+                           stop: Union[None, List[str]] = None) -> requests.Response:
+        """
+        Start and stop the controllers for a given hardware interface.
+
+        :param interface_name: The name of the hardware interface to unload
+        :param start: A list of controllers to start
+        :param stop: A list of controllers to stop
+        """
         return requests.post(self._endpoint('call_service'),
-                             json={"interface_name": interface_name, "start": start, "stop": stop})
+                             json={"interface_name": interface_name, "start": [] if not start else start,
+                                   "stop": [] if not stop else stop})
 
     def unload_component(self, component_name: str) -> requests.Response:
         """
@@ -161,3 +178,43 @@ class AICA:
         :param interface_name: The name of the hardware interface to unload
         """
         return requests.post(self._endpoint('unload_hardware'), json={"interface_name": interface_name})
+
+    def wait_for_predicate(self, component, predicate, timeout: Union[None, int, float] = None):
+        """
+        Wait until a component predicate is true.
+
+        :param component: The name of the component
+        :param predicate: The name of the predicate
+        :param timeout: Timeout duration in seconds. If set to None, block indefinitely
+        :return: False if the connection times out before the predicate is true
+        """
+        component = f'/{component}'
+
+        def check_predicate(data):
+            try:
+                if data[component][predicate]:
+                    return True
+            except KeyError:
+                return False
+
+        ws = WebsocketSyncClient(self._ws_endpoint('predicates'))
+        return ws.read_until(check_predicate, timeout=timeout)
+
+    def wait_for_condition(self, condition, timeout=None):
+        """
+        Wait until a condition is true.
+
+        :param condition: The name of the condition
+        :param timeout: Timeout duration in seconds. If set to None, block indefinitely
+        :return: False if the connection times out before the condition is true
+        """
+
+        def check_condition(data):
+            try:
+                if data[condition]:
+                    return True
+            except KeyError:
+                return False
+
+        ws = WebsocketSyncClient(self._ws_endpoint('conditions'))
+        return ws.read_until(check_condition, timeout=timeout)
