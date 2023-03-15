@@ -719,8 +719,8 @@ margin-bottom: 20px;
                       <a href="#api-AICA-version">version</a>
                     </li>
                   <li class="nav-header" data-group="Applications"><a href="#api-Applications">API Methods - Applications</a></li>
-                    <li data-group="Applications" data-name="componentService" class="">
-                      <a href="#api-Applications-componentService">componentService</a>
+                    <li data-group="Applications" data-name="callService" class="">
+                      <a href="#api-Applications-callService">callService</a>
                     </li>
                     <li data-group="Applications" data-name="loadComponent" class="">
                       <a href="#api-Applications-loadComponent">loadComponent</a>
@@ -1028,10 +1028,10 @@ except ApiException as e:
                   </section>
                 <section id="api-Applications">
                   <h1>Applications</h1>
-                    <div id="api-Applications-componentService">
-                      <article id="api-Applications-componentService-0" data-group="User" data-name="componentService" data-version="0">
+                    <div id="api-Applications-callService">
+                      <article id="api-Applications-callService-0" data-group="User" data-name="callService" data-version="0">
                         <div class="pull-left">
-                          <h1>componentService</h1>
+                          <h1>callService</h1>
                           <p>Call a service on a component</p>
                         </div>
                         <div class="pull-right"></div>
@@ -1045,24 +1045,24 @@ except ApiException as e:
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Applications-componentService-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Applications-componentService-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Applications-componentService-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Applications-componentService-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Applications-componentService-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Applications-componentService-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Applications-componentService-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Applications-componentService-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Applications-componentService-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Applications-componentService-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Applications-componentService-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-Applications-callService-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Applications-callService-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Applications-callService-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Applications-callService-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Applications-callService-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Applications-callService-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Applications-callService-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Applications-callService-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Applications-callService-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Applications-callService-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Applications-callService-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Applications-componentService-0-curl">
+                          <div class="tab-pane active" id="examples-Applications-callService-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/v1/application/components/{component_name}/service/{service_name}"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Applications-componentService-0-java">
+                          <div class="tab-pane" id="examples-Applications-callService-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -1080,16 +1080,16 @@ public class ApplicationsApiExample {
         String componentName = componentName_example; // String | The name of the component
         Payload_1 payload = ; // Payload_1 | 
         try {
-            apiInstance.componentService(serviceName, componentName, payload);
+            apiInstance.callService(serviceName, componentName, payload);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ApplicationsApi#componentService");
+            System.err.println("Exception when calling ApplicationsApi#callService");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Applications-componentService-0-android">
+                          <div class="tab-pane" id="examples-Applications-callService-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ApplicationsApi;
 
 public class ApplicationsApiExample {
@@ -1100,19 +1100,19 @@ public class ApplicationsApiExample {
         String componentName = componentName_example; // String | The name of the component
         Payload_1 payload = ; // Payload_1 | 
         try {
-            apiInstance.componentService(serviceName, componentName, payload);
+            apiInstance.callService(serviceName, componentName, payload);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ApplicationsApi#componentService");
+            System.err.println("Exception when calling ApplicationsApi#callService");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Applications-componentService-0-groovy">
+  <div class="tab-pane" id="examples-Applications-callService-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Applications-componentService-0-objc">
+                            <div class="tab-pane" id="examples-Applications-callService-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">String *serviceName = serviceName_example; // The name of the service
 String *componentName = componentName_example; // The name of the component
 Payload_1 *payload = ; // 
@@ -1120,7 +1120,7 @@ Payload_1 *payload = ; //
 ApplicationsApi *apiInstance = [[ApplicationsApi alloc] init];
 
 // Call a service on a component
-[apiInstance componentServiceWith:serviceName
+[apiInstance callServiceWith:serviceName
     componentName:componentName
     payload:payload
               completionHandler: ^(NSError* error) {
@@ -1131,7 +1131,7 @@ ApplicationsApi *apiInstance = [[ApplicationsApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Applications-componentService-0-javascript">
+                            <div class="tab-pane" id="examples-Applications-callService-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
 
 var api = new AicaApi.ApplicationsApi()
@@ -1150,14 +1150,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.componentService(serviceName, componentName, payload, callback);
+api.callService(serviceName, componentName, payload, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Applications-componentService-0-angular">
+                            <!--<div class="tab-pane" id="examples-Applications-callService-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Applications-componentService-0-csharp">
+                            <div class="tab-pane" id="examples-Applications-callService-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -1166,7 +1166,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class componentServiceExample
+    public class callServiceExample
     {
         public void main()
         {
@@ -1179,11 +1179,11 @@ namespace Example
             try
             {
                 // Call a service on a component
-                apiInstance.componentService(serviceName, componentName, payload);
+                apiInstance.callService(serviceName, componentName, payload);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling ApplicationsApi.componentService: " + e.Message );
+                Debug.Print("Exception when calling ApplicationsApi.callService: " + e.Message );
             }
         }
     }
@@ -1191,7 +1191,7 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Applications-componentService-0-php">
+                            <div class="tab-pane" id="examples-Applications-callService-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -1201,14 +1201,14 @@ $componentName = componentName_example; // String | The name of the component
 $payload = ; // Payload_1 | 
 
 try {
-    $api_instance->componentService($serviceName, $componentName, $payload);
+    $api_instance->callService($serviceName, $componentName, $payload);
 } catch (Exception $e) {
-    echo 'Exception when calling ApplicationsApi->componentService: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ApplicationsApi->callService: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Applications-componentService-0-perl">
+                            <div class="tab-pane" id="examples-Applications-callService-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::ApplicationsApi;
@@ -1219,14 +1219,14 @@ my $componentName = componentName_example; # String | The name of the component
 my $payload = WWW::SwaggerClient::Object::Payload_1->new(); # Payload_1 | 
 
 eval { 
-    $api_instance->componentService(serviceName => $serviceName, componentName => $componentName, payload => $payload);
+    $api_instance->callService(serviceName => $serviceName, componentName => $componentName, payload => $payload);
 };
 if ($@) {
-    warn "Exception when calling ApplicationsApi->componentService: $@\n";
+    warn "Exception when calling ApplicationsApi->callService: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Applications-componentService-0-python">
+                            <div class="tab-pane" id="examples-Applications-callService-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -1241,9 +1241,9 @@ payload =  # Payload_1 |
 
 try: 
     # Call a service on a component
-    api_instance.component_service(serviceName, componentName, payload)
+    api_instance.call_service(serviceName, componentName, payload)
 except ApiException as e:
-    print("Exception when calling ApplicationsApi->componentService: %s\n" % e)</code></pre>
+    print("Exception when calling ApplicationsApi->callService: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
@@ -1259,7 +1259,7 @@ except ApiException as e:
 <td>
 
 
-    <div id="d2e199_componentService_serviceName">
+    <div id="d2e199_callService_serviceName">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -1282,7 +1282,7 @@ except ApiException as e:
 <td>
 
 
-    <div id="d2e199_componentService_componentName">
+    <div id="d2e199_callService_componentName">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -1335,12 +1335,12 @@ $(document).ready(function() {
   }
 
   var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_componentService_payload');
+  var result = $('#d2e199_callService_payload');
   result.empty();
   result.append(view.render());
 });
 </script>
-<div id="d2e199_componentService_payload"></div>
+<div id="d2e199_callService_payload"></div>
 </td>
 </tr>
 
