@@ -697,7 +697,8 @@ margin-bottom: 20px;
     // Script section to load models into a JS Var
     var defs = {}
         defs["payload"] = {"type":"object","properties":{"payload":{"type":"string"}}};
-        defs["payload_1"] = {"type":"object","properties":{"payload":{"type":"string"}}};
+        defs["payload_1"] = {"type":"object","properties":{"parameter_value":{"type":"string"}}};
+        defs["payload_2"] = {"type":"object","properties":{"payload":{"type":"string"}}};
   </script>
 
   <div class="container-fluid">
@@ -736,6 +737,9 @@ margin-bottom: 20px;
                     </li>
                     <li data-group="Applications" data-name="setApplicationState" class="">
                       <a href="#api-Applications-setApplicationState">setApplicationState</a>
+                    </li>
+                    <li data-group="Applications" data-name="setParameter" class="">
+                      <a href="#api-Applications-setParameter">setParameter</a>
                     </li>
                     <li data-group="Applications" data-name="switchControllers" class="">
                       <a href="#api-Applications-switchControllers">switchControllers</a>
@@ -812,7 +816,7 @@ margin-bottom: 20px;
         <div id="header">
           <div id="api-_">
             <h2 id="welcome-to-apidoc">API and SDK Documentation</h2>
-              <div class="app-desc">Version: 0.2.4</div>
+              <div class="app-desc">Version: 0.2.5</div>
             <hr>
             <div>API services to monitor or manage the state of applications and components in the AICA control framework</div>
           </div>
@@ -1081,7 +1085,7 @@ public class ApplicationsApiExample {
         ApplicationsApi apiInstance = new ApplicationsApi();
         String serviceName = serviceName_example; // String | The name of the service
         String componentName = componentName_example; // String | The name of the component
-        Payload_1 payload = ; // Payload_1 | 
+        Payload_2 payload = ; // Payload_2 | 
         try {
             apiInstance.callService(serviceName, componentName, payload);
         } catch (ApiException e) {
@@ -1101,7 +1105,7 @@ public class ApplicationsApiExample {
         ApplicationsApi apiInstance = new ApplicationsApi();
         String serviceName = serviceName_example; // String | The name of the service
         String componentName = componentName_example; // String | The name of the component
-        Payload_1 payload = ; // Payload_1 | 
+        Payload_2 payload = ; // Payload_2 | 
         try {
             apiInstance.callService(serviceName, componentName, payload);
         } catch (ApiException e) {
@@ -1118,7 +1122,7 @@ public class ApplicationsApiExample {
                             <div class="tab-pane" id="examples-Applications-callService-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">String *serviceName = serviceName_example; // The name of the service
 String *componentName = componentName_example; // The name of the component
-Payload_1 *payload = ; // 
+Payload_2 *payload = ; // 
 
 ApplicationsApi *apiInstance = [[ApplicationsApi alloc] init];
 
@@ -1143,7 +1147,7 @@ var serviceName = serviceName_example; // {String} The name of the service
 
 var componentName = componentName_example; // {String} The name of the component
 
-var payload = ; // {Payload_1} 
+var payload = ; // {Payload_2} 
 
 
 var callback = function(error, data, response) {
@@ -1177,7 +1181,7 @@ namespace Example
             var apiInstance = new ApplicationsApi();
             var serviceName = serviceName_example;  // String | The name of the service
             var componentName = componentName_example;  // String | The name of the component
-            var payload = new Payload_1(); // Payload_1 | 
+            var payload = new Payload_2(); // Payload_2 | 
 
             try
             {
@@ -1201,7 +1205,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $api_instance = new Swagger\Client\Api\ApplicationsApi();
 $serviceName = serviceName_example; // String | The name of the service
 $componentName = componentName_example; // String | The name of the component
-$payload = ; // Payload_1 | 
+$payload = ; // Payload_2 | 
 
 try {
     $api_instance->callService($serviceName, $componentName, $payload);
@@ -1219,7 +1223,7 @@ use WWW::SwaggerClient::ApplicationsApi;
 my $api_instance = WWW::SwaggerClient::ApplicationsApi->new();
 my $serviceName = serviceName_example; # String | The name of the service
 my $componentName = componentName_example; # String | The name of the component
-my $payload = WWW::SwaggerClient::Object::Payload_1->new(); # Payload_1 | 
+my $payload = WWW::SwaggerClient::Object::Payload_2->new(); # Payload_2 | 
 
 eval { 
     $api_instance->callService(serviceName => $serviceName, componentName => $componentName, payload => $payload);
@@ -1240,7 +1244,7 @@ from pprint import pprint
 api_instance = swagger_client.ApplicationsApi()
 serviceName = serviceName_example # String | The name of the service
 componentName = componentName_example # String | The name of the component
-payload =  # Payload_1 | 
+payload =  # Payload_2 | 
 
 try: 
     # Call a service on a component
@@ -1324,7 +1328,7 @@ $(document).ready(function() {
   "name" : "payload",
   "required" : true,
   "schema" : {
-    "$ref" : "#/definitions/payload_1"
+    "$ref" : "#/definitions/payload_2"
   }
 };
   var schema = schemaWrapper.schema;
@@ -2583,6 +2587,338 @@ except ApiException as e:
 </tr>
 
                             </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Success </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Applications-setParameter">
+                      <article id="api-Applications-setParameter-0" data-group="User" data-name="setParameter" data-version="0">
+                        <div class="pull-left">
+                          <h1>setParameter</h1>
+                          <p>Set a parameter on a component</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/v1/application/components/{component_name}/parameter/{parameter_name}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Applications-setParameter-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Applications-setParameter-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Applications-setParameter-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Applications-setParameter-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Applications-setParameter-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Applications-setParameter-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Applications-setParameter-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Applications-setParameter-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Applications-setParameter-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Applications-setParameter-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Applications-setParameter-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Applications-setParameter-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/v1/application/components/{component_name}/parameter/{parameter_name}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Applications-setParameter-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ApplicationsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ApplicationsApiExample {
+
+    public static void main(String[] args) {
+        
+        ApplicationsApi apiInstance = new ApplicationsApi();
+        String parameterName = parameterName_example; // String | The name of the parameter
+        String componentName = componentName_example; // String | The name of the component
+        Payload_1 payload = ; // Payload_1 | 
+        try {
+            apiInstance.setParameter(parameterName, componentName, payload);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ApplicationsApi#setParameter");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Applications-setParameter-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ApplicationsApi;
+
+public class ApplicationsApiExample {
+
+    public static void main(String[] args) {
+        ApplicationsApi apiInstance = new ApplicationsApi();
+        String parameterName = parameterName_example; // String | The name of the parameter
+        String componentName = componentName_example; // String | The name of the component
+        Payload_1 payload = ; // Payload_1 | 
+        try {
+            apiInstance.setParameter(parameterName, componentName, payload);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ApplicationsApi#setParameter");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Applications-setParameter-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Applications-setParameter-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *parameterName = parameterName_example; // The name of the parameter
+String *componentName = componentName_example; // The name of the component
+Payload_1 *payload = ; // 
+
+ApplicationsApi *apiInstance = [[ApplicationsApi alloc] init];
+
+// Set a parameter on a component
+[apiInstance setParameterWith:parameterName
+    componentName:componentName
+    payload:payload
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Applications-setParameter-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
+
+var api = new AicaApi.ApplicationsApi()
+
+var parameterName = parameterName_example; // {String} The name of the parameter
+
+var componentName = componentName_example; // {String} The name of the component
+
+var payload = ; // {Payload_1} 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.setParameter(parameterName, componentName, payload, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Applications-setParameter-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Applications-setParameter-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class setParameterExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ApplicationsApi();
+            var parameterName = parameterName_example;  // String | The name of the parameter
+            var componentName = componentName_example;  // String | The name of the component
+            var payload = new Payload_1(); // Payload_1 | 
+
+            try
+            {
+                // Set a parameter on a component
+                apiInstance.setParameter(parameterName, componentName, payload);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ApplicationsApi.setParameter: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Applications-setParameter-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ApplicationsApi();
+$parameterName = parameterName_example; // String | The name of the parameter
+$componentName = componentName_example; // String | The name of the component
+$payload = ; // Payload_1 | 
+
+try {
+    $api_instance->setParameter($parameterName, $componentName, $payload);
+} catch (Exception $e) {
+    echo 'Exception when calling ApplicationsApi->setParameter: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Applications-setParameter-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ApplicationsApi;
+
+my $api_instance = WWW::SwaggerClient::ApplicationsApi->new();
+my $parameterName = parameterName_example; # String | The name of the parameter
+my $componentName = componentName_example; # String | The name of the component
+my $payload = WWW::SwaggerClient::Object::Payload_1->new(); # Payload_1 | 
+
+eval { 
+    $api_instance->setParameter(parameterName => $parameterName, componentName => $componentName, payload => $payload);
+};
+if ($@) {
+    warn "Exception when calling ApplicationsApi->setParameter: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Applications-setParameter-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ApplicationsApi()
+parameterName = parameterName_example # String | The name of the parameter
+componentName = componentName_example # String | The name of the component
+payload =  # Payload_1 | 
+
+try: 
+    # Set a parameter on a component
+    api_instance.set_parameter(parameterName, componentName, payload)
+except ApiException as e:
+    print("Exception when calling ApplicationsApi->setParameter: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">parameter_name*</td>
+<td>
+
+
+    <div id="d2e199_setParameter_parameterName">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The name of the parameter
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">component_name*</td>
+<td>
+
+
+    <div id="d2e199_setParameter_componentName">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The name of the component
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">payload <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "payload",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/payload_1"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_setParameter_payload');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_setParameter_payload"></div>
+</td>
+</tr>
+
+                            </table>
+
+
 
                           <h2>Responses</h2>
                             <h3> Status: 200 - Success </h3>
