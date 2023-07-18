@@ -696,9 +696,12 @@ margin-bottom: 20px;
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+        defs["Hardware"] = {"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"},"urdf":{"type":"string"},"creation_date":{"type":"string","format":"date-time"},"last_modified_date":{"type":"string","format":"date-time"}}};
         defs["payload"] = {"type":"object","properties":{"payload":{"type":"string"}}};
         defs["payload_1"] = {"type":"object","properties":{"parameter_value":{"type":"string"}}};
         defs["payload_2"] = {"type":"object","properties":{"payload":{"type":"string"}}};
+        defs["payload_3"] = {"type":"object","properties":{"urdf":{"type":"string"},"description":{"type":"string"}}};
+        defs["payload_4"] = {"type":"object","properties":{"urdf":{"type":"string"},"description":{"type":"string"}}};
   </script>
 
   <div class="container-fluid">
@@ -752,6 +755,22 @@ margin-bottom: 20px;
                     </li>
                     <li data-group="Applications" data-name="unloadHardware" class="">
                       <a href="#api-Applications-unloadHardware">unloadHardware</a>
+                    </li>
+                  <li class="nav-header" data-group="Hardware"><a href="#api-Hardware">API Methods - Hardware</a></li>
+                    <li data-group="Hardware" data-name="deleteHardware" class="">
+                      <a href="#api-Hardware-deleteHardware">deleteHardware</a>
+                    </li>
+                    <li data-group="Hardware" data-name="getHardware" class="">
+                      <a href="#api-Hardware-getHardware">getHardware</a>
+                    </li>
+                    <li data-group="Hardware" data-name="getHardwareList" class="">
+                      <a href="#api-Hardware-getHardwareList">getHardwareList</a>
+                    </li>
+                    <li data-group="Hardware" data-name="patchHardware" class="">
+                      <a href="#api-Hardware-patchHardware">patchHardware</a>
+                    </li>
+                    <li data-group="Hardware" data-name="putHardware" class="">
+                      <a href="#api-Hardware-putHardware">putHardware</a>
                     </li>
                   <li class="nav-header" data-group="V0"><a href="#api-V0">API Methods - V0</a></li>
                     <li data-group="V0" data-name="callService" class="">
@@ -4012,6 +4031,1694 @@ except ApiException as e:
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-Hardware">
+                  <h1>Hardware</h1>
+                    <div id="api-Hardware-deleteHardware">
+                      <article id="api-Hardware-deleteHardware-0" data-group="User" data-name="deleteHardware" data-version="0">
+                        <div class="pull-left">
+                          <h1>deleteHardware</h1>
+                          <p>Delete hardware from the database</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/v1/hardware/{hardware_name}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Hardware-deleteHardware-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Hardware-deleteHardware-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Hardware-deleteHardware-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-deleteHardware-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Hardware-deleteHardware-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Hardware-deleteHardware-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-deleteHardware-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Hardware-deleteHardware-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Hardware-deleteHardware-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Hardware-deleteHardware-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Hardware-deleteHardware-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Hardware-deleteHardware-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "https://localhost/v1/hardware/{hardware_name}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Hardware-deleteHardware-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.HardwareApi;
+
+import java.io.File;
+import java.util.*;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        
+        HardwareApi apiInstance = new HardwareApi();
+        String hardwareName = hardwareName_example; // String | The name of the hardware
+        try {
+            apiInstance.deleteHardware(hardwareName);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#deleteHardware");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Hardware-deleteHardware-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.HardwareApi;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        HardwareApi apiInstance = new HardwareApi();
+        String hardwareName = hardwareName_example; // String | The name of the hardware
+        try {
+            apiInstance.deleteHardware(hardwareName);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#deleteHardware");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Hardware-deleteHardware-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Hardware-deleteHardware-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *hardwareName = hardwareName_example; // The name of the hardware
+
+HardwareApi *apiInstance = [[HardwareApi alloc] init];
+
+// Delete hardware from the database
+[apiInstance deleteHardwareWith:hardwareName
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-deleteHardware-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
+
+var api = new AicaApi.HardwareApi()
+
+var hardwareName = hardwareName_example; // {String} The name of the hardware
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.deleteHardware(hardwareName, , callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Hardware-deleteHardware-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Hardware-deleteHardware-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class deleteHardwareExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new HardwareApi();
+            var hardwareName = hardwareName_example;  // String | The name of the hardware
+
+            try
+            {
+                // Delete hardware from the database
+                apiInstance.deleteHardware(hardwareName);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling HardwareApi.deleteHardware: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-deleteHardware-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\HardwareApi();
+$hardwareName = hardwareName_example; // String | The name of the hardware
+
+try {
+    $api_instance->deleteHardware($hardwareName);
+} catch (Exception $e) {
+    echo 'Exception when calling HardwareApi->deleteHardware: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-deleteHardware-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::HardwareApi;
+
+my $api_instance = WWW::SwaggerClient::HardwareApi->new();
+my $hardwareName = hardwareName_example; # String | The name of the hardware
+
+eval { 
+    $api_instance->deleteHardware(hardwareName => $hardwareName);
+};
+if ($@) {
+    warn "Exception when calling HardwareApi->deleteHardware: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-deleteHardware-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.HardwareApi()
+hardwareName = hardwareName_example # String | The name of the hardware
+
+try: 
+    # Delete hardware from the database
+    api_instance.delete_hardware(hardwareName)
+except ApiException as e:
+    print("Exception when calling HardwareApi->deleteHardware: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">hardware_name*</td>
+<td>
+
+
+    <div id="d2e199_deleteHardware_hardwareName">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The name of the hardware
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 404 - Hardware not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 204 - Hardware deleted </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Hardware-getHardware">
+                      <article id="api-Hardware-getHardware-0" data-group="User" data-name="getHardware" data-version="0">
+                        <div class="pull-left">
+                          <h1>getHardware</h1>
+                          <p>Get hardware info</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/hardware/{hardware_name}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Hardware-getHardware-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardware-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardware-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-getHardware-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Hardware-getHardware-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardware-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-getHardware-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Hardware-getHardware-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardware-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardware-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardware-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Hardware-getHardware-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/v1/hardware/{hardware_name}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Hardware-getHardware-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.HardwareApi;
+
+import java.io.File;
+import java.util.*;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        
+        HardwareApi apiInstance = new HardwareApi();
+        String hardwareName = hardwareName_example; // String | The name of the hardware
+        String xFields = xFields_example; // String | An optional fields mask
+        try {
+            Hardware result = apiInstance.getHardware(hardwareName, xFields);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#getHardware");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Hardware-getHardware-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.HardwareApi;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        HardwareApi apiInstance = new HardwareApi();
+        String hardwareName = hardwareName_example; // String | The name of the hardware
+        String xFields = xFields_example; // String | An optional fields mask
+        try {
+            Hardware result = apiInstance.getHardware(hardwareName, xFields);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#getHardware");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Hardware-getHardware-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Hardware-getHardware-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *hardwareName = hardwareName_example; // The name of the hardware
+String *xFields = xFields_example; // An optional fields mask (optional)
+
+HardwareApi *apiInstance = [[HardwareApi alloc] init];
+
+// Get hardware info
+[apiInstance getHardwareWith:hardwareName
+    xFields:xFields
+              completionHandler: ^(Hardware output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-getHardware-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
+
+var api = new AicaApi.HardwareApi()
+
+var hardwareName = hardwareName_example; // {String} The name of the hardware
+
+var opts = { 
+  'xFields': xFields_example // {String} An optional fields mask
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getHardware(hardwareName, , opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Hardware-getHardware-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Hardware-getHardware-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getHardwareExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new HardwareApi();
+            var hardwareName = hardwareName_example;  // String | The name of the hardware
+            var xFields = xFields_example;  // String | An optional fields mask (optional) 
+
+            try
+            {
+                // Get hardware info
+                Hardware result = apiInstance.getHardware(hardwareName, xFields);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling HardwareApi.getHardware: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-getHardware-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\HardwareApi();
+$hardwareName = hardwareName_example; // String | The name of the hardware
+$xFields = xFields_example; // String | An optional fields mask
+
+try {
+    $result = $api_instance->getHardware($hardwareName, $xFields);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HardwareApi->getHardware: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-getHardware-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::HardwareApi;
+
+my $api_instance = WWW::SwaggerClient::HardwareApi->new();
+my $hardwareName = hardwareName_example; # String | The name of the hardware
+my $xFields = xFields_example; # String | An optional fields mask
+
+eval { 
+    my $result = $api_instance->getHardware(hardwareName => $hardwareName, xFields => $xFields);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling HardwareApi->getHardware: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-getHardware-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.HardwareApi()
+hardwareName = hardwareName_example # String | The name of the hardware
+xFields = xFields_example # String | An optional fields mask (optional)
+
+try: 
+    # Get hardware info
+    api_response = api_instance.get_hardware(hardwareName, xFields=xFields)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling HardwareApi->getHardware: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">hardware_name*</td>
+<td>
+
+
+    <div id="d2e199_getHardware_hardwareName">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The name of the hardware
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Fields</td>
+<td>
+
+
+    <div id="d2e199_getHardware_xFields">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+                    <span class="format">
+                        (mask)
+                    </span>
+
+                    <div class="inner description">
+                        An optional fields mask
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 404 - Hardware not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 200 - Success </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getHardware-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getHardware-200-schema">
+                                  <div id='responses-getHardware-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Success",
+  "schema" : {
+    "$ref" : "#/definitions/Hardware"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getHardware-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getHardware-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getHardware-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Hardware-getHardwareList">
+                      <article id="api-Hardware-getHardwareList-0" data-group="User" data-name="getHardwareList" data-version="0">
+                        <div class="pull-left">
+                          <h1>getHardwareList</h1>
+                          <p>List available hardware from the database</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/hardware</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Hardware-getHardwareList-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardwareList-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardwareList-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-getHardwareList-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Hardware-getHardwareList-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardwareList-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-getHardwareList-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Hardware-getHardwareList-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardwareList-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardwareList-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Hardware-getHardwareList-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Hardware-getHardwareList-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/v1/hardware"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Hardware-getHardwareList-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.HardwareApi;
+
+import java.io.File;
+import java.util.*;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        
+        HardwareApi apiInstance = new HardwareApi();
+        String xFields = xFields_example; // String | An optional fields mask
+        try {
+            array[Hardware] result = apiInstance.getHardwareList(xFields);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#getHardwareList");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Hardware-getHardwareList-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.HardwareApi;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        HardwareApi apiInstance = new HardwareApi();
+        String xFields = xFields_example; // String | An optional fields mask
+        try {
+            array[Hardware] result = apiInstance.getHardwareList(xFields);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#getHardwareList");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Hardware-getHardwareList-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Hardware-getHardwareList-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *xFields = xFields_example; // An optional fields mask (optional)
+
+HardwareApi *apiInstance = [[HardwareApi alloc] init];
+
+// List available hardware from the database
+[apiInstance getHardwareListWith:xFields
+              completionHandler: ^(array[Hardware] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-getHardwareList-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
+
+var api = new AicaApi.HardwareApi()
+
+var opts = { 
+  'xFields': xFields_example // {String} An optional fields mask
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getHardwareList(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Hardware-getHardwareList-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Hardware-getHardwareList-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getHardwareListExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new HardwareApi();
+            var xFields = xFields_example;  // String | An optional fields mask (optional) 
+
+            try
+            {
+                // List available hardware from the database
+                array[Hardware] result = apiInstance.getHardwareList(xFields);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling HardwareApi.getHardwareList: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-getHardwareList-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\HardwareApi();
+$xFields = xFields_example; // String | An optional fields mask
+
+try {
+    $result = $api_instance->getHardwareList($xFields);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HardwareApi->getHardwareList: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-getHardwareList-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::HardwareApi;
+
+my $api_instance = WWW::SwaggerClient::HardwareApi->new();
+my $xFields = xFields_example; # String | An optional fields mask
+
+eval { 
+    my $result = $api_instance->getHardwareList(xFields => $xFields);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling HardwareApi->getHardwareList: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-getHardwareList-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.HardwareApi()
+xFields = xFields_example # String | An optional fields mask (optional)
+
+try: 
+    # List available hardware from the database
+    api_response = api_instance.get_hardware_list(xFields=xFields)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling HardwareApi->getHardwareList: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Fields</td>
+<td>
+
+
+    <div id="d2e199_getHardwareList_xFields">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+                    <span class="format">
+                        (mask)
+                    </span>
+
+                    <div class="inner description">
+                        An optional fields mask
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Success </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getHardwareList-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getHardwareList-200-schema">
+                                  <div id='responses-getHardwareList-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Success",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/Hardware"
+    }
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getHardwareList-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getHardwareList-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getHardwareList-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Hardware-patchHardware">
+                      <article id="api-Hardware-patchHardware-0" data-group="User" data-name="patchHardware" data-version="0">
+                        <div class="pull-left">
+                          <h1>patchHardware</h1>
+                          <p>Update hardware info</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="patch"><code><span class="pln">/v1/hardware/{hardware_name}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Hardware-patchHardware-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Hardware-patchHardware-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Hardware-patchHardware-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-patchHardware-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Hardware-patchHardware-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Hardware-patchHardware-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-patchHardware-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Hardware-patchHardware-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Hardware-patchHardware-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Hardware-patchHardware-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Hardware-patchHardware-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Hardware-patchHardware-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PATCH "https://localhost/v1/hardware/{hardware_name}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Hardware-patchHardware-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.HardwareApi;
+
+import java.io.File;
+import java.util.*;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        
+        HardwareApi apiInstance = new HardwareApi();
+        String hardwareName = hardwareName_example; // String | The name of the hardware
+        Payload_4 payload = ; // Payload_4 | 
+        String xFields = xFields_example; // String | An optional fields mask
+        try {
+            Hardware result = apiInstance.patchHardware(hardwareName, payload, xFields);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#patchHardware");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Hardware-patchHardware-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.HardwareApi;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        HardwareApi apiInstance = new HardwareApi();
+        String hardwareName = hardwareName_example; // String | The name of the hardware
+        Payload_4 payload = ; // Payload_4 | 
+        String xFields = xFields_example; // String | An optional fields mask
+        try {
+            Hardware result = apiInstance.patchHardware(hardwareName, payload, xFields);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#patchHardware");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Hardware-patchHardware-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Hardware-patchHardware-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *hardwareName = hardwareName_example; // The name of the hardware
+Payload_4 *payload = ; // 
+String *xFields = xFields_example; // An optional fields mask (optional)
+
+HardwareApi *apiInstance = [[HardwareApi alloc] init];
+
+// Update hardware info
+[apiInstance patchHardwareWith:hardwareName
+    payload:payload
+    xFields:xFields
+              completionHandler: ^(Hardware output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-patchHardware-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
+
+var api = new AicaApi.HardwareApi()
+
+var hardwareName = hardwareName_example; // {String} The name of the hardware
+
+var payload = ; // {Payload_4} 
+
+var opts = { 
+  'xFields': xFields_example // {String} An optional fields mask
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.patchHardware(hardwareName, payload, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Hardware-patchHardware-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Hardware-patchHardware-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class patchHardwareExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new HardwareApi();
+            var hardwareName = hardwareName_example;  // String | The name of the hardware
+            var payload = new Payload_4(); // Payload_4 | 
+            var xFields = xFields_example;  // String | An optional fields mask (optional) 
+
+            try
+            {
+                // Update hardware info
+                Hardware result = apiInstance.patchHardware(hardwareName, payload, xFields);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling HardwareApi.patchHardware: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-patchHardware-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\HardwareApi();
+$hardwareName = hardwareName_example; // String | The name of the hardware
+$payload = ; // Payload_4 | 
+$xFields = xFields_example; // String | An optional fields mask
+
+try {
+    $result = $api_instance->patchHardware($hardwareName, $payload, $xFields);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HardwareApi->patchHardware: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-patchHardware-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::HardwareApi;
+
+my $api_instance = WWW::SwaggerClient::HardwareApi->new();
+my $hardwareName = hardwareName_example; # String | The name of the hardware
+my $payload = WWW::SwaggerClient::Object::Payload_4->new(); # Payload_4 | 
+my $xFields = xFields_example; # String | An optional fields mask
+
+eval { 
+    my $result = $api_instance->patchHardware(hardwareName => $hardwareName, payload => $payload, xFields => $xFields);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling HardwareApi->patchHardware: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-patchHardware-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.HardwareApi()
+hardwareName = hardwareName_example # String | The name of the hardware
+payload =  # Payload_4 | 
+xFields = xFields_example # String | An optional fields mask (optional)
+
+try: 
+    # Update hardware info
+    api_response = api_instance.patch_hardware(hardwareName, payload, xFields=xFields)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling HardwareApi->patchHardware: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">hardware_name*</td>
+<td>
+
+
+    <div id="d2e199_patchHardware_hardwareName">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The name of the hardware
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Fields</td>
+<td>
+
+
+    <div id="d2e199_patchHardware_xFields">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+                    <span class="format">
+                        (mask)
+                    </span>
+
+                    <div class="inner description">
+                        An optional fields mask
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">payload <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "payload",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/payload_4"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_patchHardware_payload');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_patchHardware_payload"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 404 - Hardware not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 304 - Hardware not modified </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 200 - Success </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-patchHardware-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-patchHardware-200-schema">
+                                  <div id='responses-patchHardware-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Success",
+  "schema" : {
+    "$ref" : "#/definitions/Hardware"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-patchHardware-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-patchHardware-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-patchHardware-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Hardware-putHardware">
+                      <article id="api-Hardware-putHardware-0" data-group="User" data-name="putHardware" data-version="0">
+                        <div class="pull-left">
+                          <h1>putHardware</h1>
+                          <p>Add hardware to the database</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/v1/hardware/{hardware_name}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Hardware-putHardware-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Hardware-putHardware-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Hardware-putHardware-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-putHardware-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Hardware-putHardware-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Hardware-putHardware-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Hardware-putHardware-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Hardware-putHardware-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Hardware-putHardware-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Hardware-putHardware-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Hardware-putHardware-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Hardware-putHardware-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/v1/hardware/{hardware_name}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Hardware-putHardware-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.HardwareApi;
+
+import java.io.File;
+import java.util.*;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        
+        HardwareApi apiInstance = new HardwareApi();
+        String hardwareName = hardwareName_example; // String | The name of the hardware
+        Payload_3 payload = ; // Payload_3 | 
+        String xFields = xFields_example; // String | An optional fields mask
+        try {
+            Hardware result = apiInstance.putHardware(hardwareName, payload, xFields);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#putHardware");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Hardware-putHardware-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.HardwareApi;
+
+public class HardwareApiExample {
+
+    public static void main(String[] args) {
+        HardwareApi apiInstance = new HardwareApi();
+        String hardwareName = hardwareName_example; // String | The name of the hardware
+        Payload_3 payload = ; // Payload_3 | 
+        String xFields = xFields_example; // String | An optional fields mask
+        try {
+            Hardware result = apiInstance.putHardware(hardwareName, payload, xFields);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling HardwareApi#putHardware");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Hardware-putHardware-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Hardware-putHardware-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *hardwareName = hardwareName_example; // The name of the hardware
+Payload_3 *payload = ; // 
+String *xFields = xFields_example; // An optional fields mask (optional)
+
+HardwareApi *apiInstance = [[HardwareApi alloc] init];
+
+// Add hardware to the database
+[apiInstance putHardwareWith:hardwareName
+    payload:payload
+    xFields:xFields
+              completionHandler: ^(Hardware output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-putHardware-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
+
+var api = new AicaApi.HardwareApi()
+
+var hardwareName = hardwareName_example; // {String} The name of the hardware
+
+var payload = ; // {Payload_3} 
+
+var opts = { 
+  'xFields': xFields_example // {String} An optional fields mask
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.putHardware(hardwareName, payload, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Hardware-putHardware-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Hardware-putHardware-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class putHardwareExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new HardwareApi();
+            var hardwareName = hardwareName_example;  // String | The name of the hardware
+            var payload = new Payload_3(); // Payload_3 | 
+            var xFields = xFields_example;  // String | An optional fields mask (optional) 
+
+            try
+            {
+                // Add hardware to the database
+                Hardware result = apiInstance.putHardware(hardwareName, payload, xFields);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling HardwareApi.putHardware: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-putHardware-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\HardwareApi();
+$hardwareName = hardwareName_example; // String | The name of the hardware
+$payload = ; // Payload_3 | 
+$xFields = xFields_example; // String | An optional fields mask
+
+try {
+    $result = $api_instance->putHardware($hardwareName, $payload, $xFields);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling HardwareApi->putHardware: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-putHardware-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::HardwareApi;
+
+my $api_instance = WWW::SwaggerClient::HardwareApi->new();
+my $hardwareName = hardwareName_example; # String | The name of the hardware
+my $payload = WWW::SwaggerClient::Object::Payload_3->new(); # Payload_3 | 
+my $xFields = xFields_example; # String | An optional fields mask
+
+eval { 
+    my $result = $api_instance->putHardware(hardwareName => $hardwareName, payload => $payload, xFields => $xFields);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling HardwareApi->putHardware: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Hardware-putHardware-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.HardwareApi()
+hardwareName = hardwareName_example # String | The name of the hardware
+payload =  # Payload_3 | 
+xFields = xFields_example # String | An optional fields mask (optional)
+
+try: 
+    # Add hardware to the database
+    api_response = api_instance.put_hardware(hardwareName, payload, xFields=xFields)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling HardwareApi->putHardware: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">hardware_name*</td>
+<td>
+
+
+    <div id="d2e199_putHardware_hardwareName">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The name of the hardware
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Fields</td>
+<td>
+
+
+    <div id="d2e199_putHardware_xFields">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+                    <span class="format">
+                        (mask)
+                    </span>
+
+                    <div class="inner description">
+                        An optional fields mask
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">payload <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "payload",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/payload_3"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_putHardware_payload');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_putHardware_payload"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 409 - Hardware with that name already exists </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 201 - Success </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-putHardware-201-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-putHardware-201-schema">
+                                  <div id='responses-putHardware-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Success",
+  "schema" : {
+    "$ref" : "#/definitions/Hardware"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-putHardware-201-schema-data').val(stringify(schema));
+                                        var result = $('#responses-putHardware-201-schema-201');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-putHardware-201-schema-data' type='hidden' value=''></input>
+                                </div>
                             </div>
 
                         </article>
