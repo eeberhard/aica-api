@@ -697,7 +697,11 @@ margin-bottom: 20px;
     // Script section to load models into a JS Var
     var defs = {}
         defs["Application"] = {"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"},"yaml":{"type":"string"},"schema_version":{"type":"string","default":"0.0.1"},"creation_date":{"type":"string","format":"date-time"},"last_modified_date":{"type":"string","format":"date-time"}}};
+        defs["Basic Description"] = {"type":"object","properties":{"brief":{"type":"string"},"details":{"type":"string"}}};
+        defs["Component Description"] = {"type":"object","properties":{"name":{"type":"string"},"description":{"$ref":"#/definitions/Basic Description"},"registration":{"type":"string"},"inherits":{"type":"string"},"virtual":{"type":"boolean","default":false},"inputs":{"type":"array","items":{"$ref":"#/definitions/Signal Description"}},"outputs":{"type":"array","items":{"$ref":"#/definitions/Signal Description"}},"parameters":{"type":"array","items":{"$ref":"#/definitions/Parameter Description"}},"predicates":{"type":"array","items":{"$ref":"#/definitions/Predicate Description"}},"services":{"type":"array","items":{"$ref":"#/definitions/Service Description"}}}};
+        defs["Component Descriptions"] = {"type":"object","properties":{"*":{"type":"object","additionalProperties":{"$ref":"#/definitions/Component Description"}}}};
         defs["Hardware"] = {"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"},"urdf":{"type":"string"},"creation_date":{"type":"string","format":"date-time"},"last_modified_date":{"type":"string","format":"date-time"}}};
+        defs["Parameter Description"] = {"type":"object","properties":{"display_name":{"type":"string"},"description":{"type":"string"},"parameter_name":{"type":"string"},"parameter_type":{"type":"string"},"parameter_state_type":{"type":"string"},"default_value":{"type":"string"},"dynamic":{"type":"boolean","default":false},"internal":{"type":"boolean","default":false}}};
         defs["payload"] = {"type":"object","properties":{"payload":{"type":"string"}}};
         defs["payload_1"] = {"type":"object","properties":{"parameter_value":{"type":"string"}}};
         defs["payload_2"] = {"type":"object","properties":{"payload":{"type":"string"}}};
@@ -705,6 +709,9 @@ margin-bottom: 20px;
         defs["payload_4"] = {"type":"object","properties":{"yaml":{"type":"string"},"description":{"type":"string"}}};
         defs["payload_5"] = {"type":"object","properties":{"urdf":{"type":"string"},"description":{"type":"string"}}};
         defs["payload_6"] = {"type":"object","properties":{"urdf":{"type":"string"},"description":{"type":"string"}}};
+        defs["Predicate Description"] = {"type":"object","properties":{"display_name":{"type":"string"},"description":{"type":"string"},"predicate_name":{"type":"string"}}};
+        defs["Service Description"] = {"type":"object","properties":{"display_name":{"type":"string"},"description":{"type":"string"},"service_name":{"type":"string"},"payload_format":{"type":"string"}}};
+        defs["Signal Description"] = {"type":"object","properties":{"display_name":{"type":"string"},"description":{"type":"string"},"signal_name":{"type":"string"},"default_topic":{"type":"string"},"reconfigurable_topic":{"type":"boolean","default":false},"signal_type":{"type":"string"},"signal_types":{"type":"array","items":{"type":"string"}},"reconfigurable_type":{"type":"boolean","default":false},"custom_signal_type":{"type":"string"}}};
   </script>
 
   <div class="container-fluid">
@@ -794,15 +801,15 @@ margin-bottom: 20px;
                       <a href="#api-Data-putDBHardware">putDBHardware</a>
                     </li>
                   <li class="nav-header" data-group="Root"><a href="#api-Root">API Methods - Root</a></li>
-                    <li data-group="Root" data-name="descriptions" class="">
-                      <a href="#api-Root-descriptions">descriptions</a>
+                    <li data-group="Root" data-name="getComponentDescriptions" class="">
+                      <a href="#api-Root-getComponentDescriptions">getComponentDescriptions</a>
                     </li>
                   <li class="nav-header" data-group="V0"><a href="#api-V0">API Methods - V0</a></li>
                     <li data-group="V0" data-name="callService" class="">
                       <a href="#api-V0-callService">callService</a>
                     </li>
-                    <li data-group="V0" data-name="descriptions" class="">
-                      <a href="#api-V0-descriptions">descriptions</a>
+                    <li data-group="V0" data-name="getComponentDescriptions" class="">
+                      <a href="#api-V0-getComponentDescriptions">getComponentDescriptions</a>
                     </li>
                     <li data-group="V0" data-name="initApplication" class="">
                       <a href="#api-V0-initApplication">initApplication</a>
@@ -853,7 +860,7 @@ margin-bottom: 20px;
         <div id="header">
           <div id="api-_">
             <h2 id="welcome-to-apidoc">API and SDK Documentation</h2>
-              <div class="app-desc">Version: 0.2.8</div>
+              <div class="app-desc">Version: 0.2.10</div>
             <hr>
             <div>API services to monitor or manage the state of applications and components in the AICA control framework</div>
           </div>
@@ -7689,16 +7696,16 @@ $(document).ready(function() {
                   </section>
                 <section id="api-Root">
                   <h1>Root</h1>
-                    <div id="api-Root-descriptions">
-                      <article id="api-Root-descriptions-0" data-group="User" data-name="descriptions" data-version="0">
+                    <div id="api-Root-getComponentDescriptions">
+                      <article id="api-Root-getComponentDescriptions-0" data-group="User" data-name="getComponentDescriptions" data-version="0">
                         <div class="pull-left">
-                          <h1>descriptions</h1>
-                          <p>Get list of component descriptions</p>
+                          <h1>getComponentDescriptions</h1>
+                          <p>Get a collection of component descriptions</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">Retrieve a list of all component descriptions that are registered in the backend workspace.</p>
+                        <p class="marked">Retrieve a dictionary of all registered component descriptions on the system image.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/components</span></code></pre>
@@ -7706,24 +7713,24 @@ $(document).ready(function() {
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Root-descriptions-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Root-descriptions-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Root-descriptions-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Root-descriptions-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Root-descriptions-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Root-descriptions-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Root-descriptions-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Root-descriptions-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Root-descriptions-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Root-descriptions-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Root-descriptions-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-Root-getComponentDescriptions-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Root-getComponentDescriptions-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Root-getComponentDescriptions-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Root-getComponentDescriptions-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Root-getComponentDescriptions-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Root-getComponentDescriptions-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Root-getComponentDescriptions-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Root-getComponentDescriptions-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Root-getComponentDescriptions-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Root-getComponentDescriptions-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Root-getComponentDescriptions-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Root-descriptions-0-curl">
+                          <div class="tab-pane active" id="examples-Root-getComponentDescriptions-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/v1/components"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Root-descriptions-0-java">
+                          <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -7737,43 +7744,51 @@ public class RootApiExample {
     public static void main(String[] args) {
         
         RootApi apiInstance = new RootApi();
+        String xFields = xFields_example; // String | An optional fields mask
         try {
-            apiInstance.descriptions();
+            Component%20Descriptions result = apiInstance.getComponentDescriptions(xFields);
+            System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling RootApi#descriptions");
+            System.err.println("Exception when calling RootApi#getComponentDescriptions");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Root-descriptions-0-android">
+                          <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.RootApi;
 
 public class RootApiExample {
 
     public static void main(String[] args) {
         RootApi apiInstance = new RootApi();
+        String xFields = xFields_example; // String | An optional fields mask
         try {
-            apiInstance.descriptions();
+            Component%20Descriptions result = apiInstance.getComponentDescriptions(xFields);
+            System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling RootApi#descriptions");
+            System.err.println("Exception when calling RootApi#getComponentDescriptions");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Root-descriptions-0-groovy">
+  <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Root-descriptions-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                            <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *xFields = xFields_example; // An optional fields mask (optional)
+
 RootApi *apiInstance = [[RootApi alloc] init];
 
-// Get list of component descriptions
-[apiInstance descriptionsWithCompletionHandler: 
-              ^(NSError* error) {
+// Get a collection of component descriptions
+[apiInstance getComponentDescriptionsWith:xFields
+              completionHandler: ^(Component%20Descriptions output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -7781,26 +7796,30 @@ RootApi *apiInstance = [[RootApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Root-descriptions-0-javascript">
+                            <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
 
 var api = new AicaApi.RootApi()
+
+var opts = { 
+  'xFields': xFields_example // {String} An optional fields mask
+};
 
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully.');
+    console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.descriptions(callback);
+api.getComponentDescriptions(opts, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Root-descriptions-0-angular">
+                            <!--<div class="tab-pane" id="examples-Root-getComponentDescriptions-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Root-descriptions-0-csharp">
+                            <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -7809,21 +7828,23 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class descriptionsExample
+    public class getComponentDescriptionsExample
     {
         public void main()
         {
             
             var apiInstance = new RootApi();
+            var xFields = xFields_example;  // String | An optional fields mask (optional) 
 
             try
             {
-                // Get list of component descriptions
-                apiInstance.descriptions();
+                // Get a collection of component descriptions
+                Component%20Descriptions result = apiInstance.getComponentDescriptions(xFields);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling RootApi.descriptions: " + e.Message );
+                Debug.Print("Exception when calling RootApi.getComponentDescriptions: " + e.Message );
             }
         }
     }
@@ -7831,36 +7852,40 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Root-descriptions-0-php">
+                            <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\RootApi();
+$xFields = xFields_example; // String | An optional fields mask
 
 try {
-    $api_instance->descriptions();
+    $result = $api_instance->getComponentDescriptions($xFields);
+    print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling RootApi->descriptions: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling RootApi->getComponentDescriptions: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Root-descriptions-0-perl">
+                            <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::RootApi;
 
 my $api_instance = WWW::SwaggerClient::RootApi->new();
+my $xFields = xFields_example; # String | An optional fields mask
 
 eval { 
-    $api_instance->descriptions();
+    my $result = $api_instance->getComponentDescriptions(xFields => $xFields);
+    print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling RootApi->descriptions: $@\n";
+    warn "Exception when calling RootApi->getComponentDescriptions: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Root-descriptions-0-python">
+                            <div class="tab-pane" id="examples-Root-getComponentDescriptions-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -7869,18 +7894,50 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.RootApi()
+xFields = xFields_example # String | An optional fields mask (optional)
 
 try: 
-    # Get list of component descriptions
-    api_instance.descriptions()
+    # Get a collection of component descriptions
+    api_response = api_instance.get_component_descriptions(xFields=xFields)
+    pprint(api_response)
 except ApiException as e:
-    print("Exception when calling RootApi->descriptions: %s\n" % e)</code></pre>
+    print("Exception when calling RootApi->getComponentDescriptions: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Fields</td>
+<td>
+
+
+    <div id="d2e199_getComponentDescriptions_xFields">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+                    <span class="format">
+                        (mask)
+                    </span>
+
+                    <div class="inner description">
+                        An optional fields mask
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
 
 
@@ -7889,9 +7946,44 @@ except ApiException as e:
                             <h3> Status: 200 - Success </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getComponentDescriptions-200-schema">Schema</a>
+                                </li>
+
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getComponentDescriptions-200-schema">
+                                  <div id='responses-getComponentDescriptions-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Success",
+  "schema" : {
+    "$ref" : "#/definitions/Component%20Descriptions"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getComponentDescriptions-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getComponentDescriptions-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getComponentDescriptions-200-schema-data' type='hidden' value=''></input>
+                                </div>
                             </div>
 
                         </article>
@@ -8212,16 +8304,16 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
-                    <div id="api-V0-descriptions">
-                      <article id="api-V0-descriptions-0" data-group="User" data-name="descriptions" data-version="0">
+                    <div id="api-V0-getComponentDescriptions">
+                      <article id="api-V0-getComponentDescriptions-0" data-group="User" data-name="getComponentDescriptions" data-version="0">
                         <div class="pull-left">
-                          <h1>descriptions</h1>
-                          <p>Get list of component descriptions</p>
+                          <h1>getComponentDescriptions</h1>
+                          <p>Get a collection of component descriptions</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">Retrieve a list of all component descriptions that are registered in the backend workspace.</p>
+                        <p class="marked">Retrieve a dictionary of all registered component descriptions on the system image.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/component_descriptions</span></code></pre>
@@ -8229,24 +8321,24 @@ except ApiException as e:
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-V0-descriptions-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-V0-descriptions-0-java">Java</a></li>
-                          <li class=""><a href="#examples-V0-descriptions-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-V0-descriptions-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-V0-descriptions-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-V0-descriptions-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-V0-descriptions-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-V0-descriptions-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-V0-descriptions-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-V0-descriptions-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-V0-descriptions-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-V0-getComponentDescriptions-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-V0-getComponentDescriptions-0-java">Java</a></li>
+                          <li class=""><a href="#examples-V0-getComponentDescriptions-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-V0-getComponentDescriptions-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-V0-getComponentDescriptions-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-V0-getComponentDescriptions-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-V0-getComponentDescriptions-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-V0-getComponentDescriptions-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-V0-getComponentDescriptions-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-V0-getComponentDescriptions-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-V0-getComponentDescriptions-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-V0-descriptions-0-curl">
+                          <div class="tab-pane active" id="examples-V0-getComponentDescriptions-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/component_descriptions"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-V0-descriptions-0-java">
+                          <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -8260,43 +8352,51 @@ public class V0ApiExample {
     public static void main(String[] args) {
         
         V0Api apiInstance = new V0Api();
+        String xFields = xFields_example; // String | An optional fields mask
         try {
-            apiInstance.descriptions();
+            Component%20Descriptions result = apiInstance.getComponentDescriptions(xFields);
+            System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling V0Api#descriptions");
+            System.err.println("Exception when calling V0Api#getComponentDescriptions");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-V0-descriptions-0-android">
+                          <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.V0Api;
 
 public class V0ApiExample {
 
     public static void main(String[] args) {
         V0Api apiInstance = new V0Api();
+        String xFields = xFields_example; // String | An optional fields mask
         try {
-            apiInstance.descriptions();
+            Component%20Descriptions result = apiInstance.getComponentDescriptions(xFields);
+            System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling V0Api#descriptions");
+            System.err.println("Exception when calling V0Api#getComponentDescriptions");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-V0-descriptions-0-groovy">
+  <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-V0-descriptions-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                            <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *xFields = xFields_example; // An optional fields mask (optional)
+
 V0Api *apiInstance = [[V0Api alloc] init];
 
-// Get list of component descriptions
-[apiInstance descriptionsWithCompletionHandler: 
-              ^(NSError* error) {
+// Get a collection of component descriptions
+[apiInstance getComponentDescriptionsWith:xFields
+              completionHandler: ^(Component%20Descriptions output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -8304,26 +8404,30 @@ V0Api *apiInstance = [[V0Api alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-V0-descriptions-0-javascript">
+                            <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var AicaApi = require('aica_api');
 
 var api = new AicaApi.V0Api()
+
+var opts = { 
+  'xFields': xFields_example // {String} An optional fields mask
+};
 
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully.');
+    console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.descriptions(callback);
+api.getComponentDescriptions(opts, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-V0-descriptions-0-angular">
+                            <!--<div class="tab-pane" id="examples-V0-getComponentDescriptions-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-V0-descriptions-0-csharp">
+                            <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -8332,21 +8436,23 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class descriptionsExample
+    public class getComponentDescriptionsExample
     {
         public void main()
         {
             
             var apiInstance = new V0Api();
+            var xFields = xFields_example;  // String | An optional fields mask (optional) 
 
             try
             {
-                // Get list of component descriptions
-                apiInstance.descriptions();
+                // Get a collection of component descriptions
+                Component%20Descriptions result = apiInstance.getComponentDescriptions(xFields);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling V0Api.descriptions: " + e.Message );
+                Debug.Print("Exception when calling V0Api.getComponentDescriptions: " + e.Message );
             }
         }
     }
@@ -8354,36 +8460,40 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-V0-descriptions-0-php">
+                            <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\V0Api();
+$xFields = xFields_example; // String | An optional fields mask
 
 try {
-    $api_instance->descriptions();
+    $result = $api_instance->getComponentDescriptions($xFields);
+    print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling V0Api->descriptions: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling V0Api->getComponentDescriptions: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-V0-descriptions-0-perl">
+                            <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::V0Api;
 
 my $api_instance = WWW::SwaggerClient::V0Api->new();
+my $xFields = xFields_example; # String | An optional fields mask
 
 eval { 
-    $api_instance->descriptions();
+    my $result = $api_instance->getComponentDescriptions(xFields => $xFields);
+    print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling V0Api->descriptions: $@\n";
+    warn "Exception when calling V0Api->getComponentDescriptions: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-V0-descriptions-0-python">
+                            <div class="tab-pane" id="examples-V0-getComponentDescriptions-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -8392,18 +8502,50 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.V0Api()
+xFields = xFields_example # String | An optional fields mask (optional)
 
 try: 
-    # Get list of component descriptions
-    api_instance.descriptions()
+    # Get a collection of component descriptions
+    api_response = api_instance.get_component_descriptions(xFields=xFields)
+    pprint(api_response)
 except ApiException as e:
-    print("Exception when calling V0Api->descriptions: %s\n" % e)</code></pre>
+    print("Exception when calling V0Api->getComponentDescriptions: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">X-Fields</td>
+<td>
+
+
+    <div id="d2e199_getComponentDescriptions_xFields">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+                    <span class="format">
+                        (mask)
+                    </span>
+
+                    <div class="inner description">
+                        An optional fields mask
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
 
 
@@ -8412,9 +8554,44 @@ except ApiException as e:
                             <h3> Status: 200 - Success </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getComponentDescriptions-200-schema">Schema</a>
+                                </li>
+
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getComponentDescriptions-200-schema">
+                                  <div id='responses-getComponentDescriptions-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Success",
+  "schema" : {
+    "$ref" : "#/definitions/Component%20Descriptions"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getComponentDescriptions-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getComponentDescriptions-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getComponentDescriptions-200-schema-data' type='hidden' value=''></input>
+                                </div>
                             </div>
 
                         </article>
