@@ -1,18 +1,51 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Unload Component",
-  "description": "Unload a component",
+  "title": "Unload",
+  "description": "Unload a component, hardware interface or controller",
   "oneOf": [
     {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "$ref": "identifiers/component.schema.json"
+        "$ref": "#/$defs/unload_object"
       }
     },
     {
-      "$ref": "identifiers/component.schema.json"
+      "$ref": "#/$defs/unload_object"
     }
-  ]
+  ],
+  "$defs": {
+    "unload_object": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "component": {
+              "$ref": "identifiers/component.schema.json"
+            }
+          },
+          "required": [
+            "component"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "hardware": {
+              "$ref": "identifiers/hardware.schema.json"
+            }
+          },
+          "required": [
+            "hardware"
+          ]
+        },
+        {
+          "$ref": "identifiers/controller.schema.json"
+        }
+      ]
+    }
+  }
 }
