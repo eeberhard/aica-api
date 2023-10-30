@@ -14,7 +14,7 @@ components:
       x: 0
       y: -300
     parameters:
-      period: 0.1
+      rate: 10
       timeout: 2.5
     events:
       is_unconfigured:
@@ -34,7 +34,7 @@ components:
       x: 500
       y: -300
     parameters:
-      period: 0.1
+      rate: 10
       timeout: 2.5
     events:
       is_unconfigured:
@@ -49,7 +49,8 @@ components:
         transition: timer
 
 on_start:
-  load: timer
+  load:
+    component: timer
 ```
 
 Then, press the Generate Graph button. The graph should show two components connected with event edges.
@@ -76,13 +77,13 @@ Thereafter, the initial component parameters are defined.
 
 ```yaml
     parameters:
-      period: 0.1
+      rate: 10
       timeout: 2.5
 ```
 
-All components have a `period` parameter which defines the time interval between periodic execution steps. The default
-period for components is 0.1 seconds, so 10 times per second. The component period can be increased or decreased to
-make a component run slower or faster, respectively.
+All components have a `rate` parameter which defines the frequency of periodic execution steps. The default rate for
+components is 10 Hertz, so 10 times per second. The component rate can be increased or decreased to make a component run
+faster or slower, respectively.
 
 The timer component has a special parameter called `timeout`, which is the duration in seconds that the timer should
 be active. At the end of the timeout period, it will be in the "timed out" state.
@@ -128,7 +129,8 @@ The very end of the application uses the `on_start` field to list the initial ap
 
 ```yaml
 on_start:
-  load: timer
+  load:
+    component: timer
 ```
 
 In this case, when the application is launched, the `timer` component should be loaded.
