@@ -2,7 +2,7 @@ from typing import Union, List
 
 import requests
 
-from ws_client import WebsocketSyncClient
+from aica_api.ws_client import WebsocketSyncClient
 
 
 class AICA:
@@ -68,7 +68,7 @@ class AICA:
         Retrieve the JSON descriptions of all available components.
         """
         return requests.get(self._endpoint('components'))
-        
+
     def controller_descriptions(self) -> requests.Response:
         """
         Retrieve the JSON descriptions of all available controllers.
@@ -159,7 +159,8 @@ class AICA:
         endpoint = 'application/state/transition?action=stop'
         return requests.put(self._endpoint(endpoint))
 
-    def set_component_parameter(self, component_name: str, parameter_name: str, parameter_value: str) -> requests.Response:
+    def set_component_parameter(self, component_name: str, parameter_name: str,
+                                parameter_value: str) -> requests.Response:
         """
         Set a parameter on a component.
 
@@ -171,7 +172,8 @@ class AICA:
         data = {"parameter_value": parameter_value}
         return requests.put(self._endpoint(endpoint), json=data)
 
-    def set_controller_parameter(self, hardware_name: str, controller_name: str, parameter_name: str, parameter_value: str) -> requests.Response:
+    def set_controller_parameter(self, hardware_name: str, controller_name: str, parameter_name: str,
+                                 parameter_value: str) -> requests.Response:
         """
         Set a parameter on a controller.
 
@@ -230,7 +232,7 @@ class AICA:
         """
         endpoint = 'application/hardware/' + hardware_name
         return requests.delete(self._endpoint(endpoint))
-    
+
     def get_application(self):
         """
         Get the application
