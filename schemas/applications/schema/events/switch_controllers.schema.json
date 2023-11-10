@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Switch Controllers",
+  "description": "Activate or deactivate controllers on a hardware interface",
+  "oneOf": [
+    {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/switch_controllers_object"
+      }
+    },
+    {
+      "$ref": "#/$defs/switch_controllers_object"
+    }
+  ],
+  "$defs": {
+    "switch_controllers_object": {
+      "title": "Switch Controllers Object",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hardware": {
+          "$ref": "identifiers/hardware.schema.json"
+        },
+        "activate": {
+          "$ref": "#/$defs/switch_controllers_target"
+        },
+        "deactivate": {
+          "$ref": "#/$defs/switch_controllers_target"
+        }
+      },
+      "required": [
+        "hardware"
+      ]
+    },
+    "switch_controllers_target": {
+      "title": "Target Controller",
+      "Description": "A controller or list of controllers",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "identifiers/controller.schema.json#/properties/controller"
+          }
+        },
+        {
+          "$ref": "identifiers/controller.schema.json#/properties/controller"
+        }
+      ]
+    }
+  }
+}
