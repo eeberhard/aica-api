@@ -1,63 +1,81 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 ---
 
 # A basic application example
 
-Open the Developer Interface and copy the following application code into the text box under the Editor tab.
+This example will show how components and predicate events can be used to create dynamic behavior in an AICA
+application.
+
+## Package requirements
+
+This example requires only the base image.
+
+```toml title="aica-package.toml"
+#syntax=ghcr.io/aica-technology/app-builder:v1
+
+[packages]
+"@aica/base" = "v2.1.0"
+```
+
+## Setting up the application
+
+After starting the application container, open the Developer Interface on `localhost:8080` and press New Application.
+Copy the following application code into the text box under the Editor tab, replacing the default content.
 
 ```yaml
+on_start:
+  load:
+    component: timer
 components:
   timer:
     component: base_components::utilities::Timer
     position:
-      x: 0
+      x: 200
       y: -300
     parameters:
       rate: 10
       timeout: 2.5
     events:
       is_unconfigured:
-        lifecycle:
-          transition: configure
-          component: timer
+        lifecycle: configure
       is_inactive:
-        lifecycle:
-          transition: activate
-          component: timer
+        lifecycle: activate
       is_timed_out:
         transition: timer_2
 
   timer_2:
     component: base_components::utilities::Timer
     position:
-      x: 500
+      x: 700
       y: -300
     parameters:
       rate: 10
       timeout: 2.5
     events:
       is_unconfigured:
-        lifecycle:
-          transition: configure
-          component: timer_2
+        lifecycle: configure
       is_inactive:
-        lifecycle:
-          transition: activate
-          component: timer_2
+        lifecycle: activate
       is_timed_out:
         transition: timer
+```
 
+Then, press the Generate Graph button. The graph should show two components connected with event edges.
+
+![timer example](./assets/timer-example.png)
+
+## The example explained
+
+The application begins with the `on_start` directive to list the initial application events.
+
+```yaml
 on_start:
   load:
     component: timer
 ```
 
-Then, press the Generate Graph button. The graph should show two components connected with event edges.
-
-![timer example](assets/timer-example.png)
-
-## The example explained
+In this case, the first event that occurs in the application is to load the `timer` component.
 
 Application components are listed under the `components` field. Each component has a name and a registration.
 The position field is used just for rendering the component on the graph.
@@ -93,19 +111,15 @@ The `events` field of a component associates component predicates with events.
 ```yaml
     events:
       is_unconfigured:
-        lifecycle:
-          transition: configure
-          component: timer
+        lifecycle: configure
 ```
 
-In this case, when the timer component is unconfigured, it triggers a lifecycle transition to configure the timer.
+In this case, when the timer component is unconfigured, it triggers a lifecycle transition to configure itself.
 Similarly, the next event activates the timer when it is inactive:
 
 ```yaml
       is_inactive:
-        lifecycle:
-          transition: activate
-          component: timer
+        lifecycle: activate
 ```
 
 When a lifecycle component configures or activates itself automatically, this is known as "auto-configure" and
@@ -125,17 +139,7 @@ second.
 
 The second block describing `timer_2` is nearly identical, as the two timers are intended to have symmetrical behavior.
 
-The very end of the application uses the `on_start` field to list the initial application events.
-
-```yaml
-on_start:
-  load:
-    component: timer
-```
-
-In this case, when the application is launched, the `timer` component should be loaded.
-
-## Putting it all together
+## Run the application
 
 Press the Play button to start the application.
 
@@ -147,3 +151,10 @@ and `timer_2` to be loaded instead. The second timer then goes through the same 
 before transitioning back to the first timer.
 
 ![timer example (animated)](./assets/timer-example.gif)
+
+Use the Pause button to keep the application in an idle state; components will remain loaded and active, but predicates
+and events will not be handled until the application is started again.
+
+Use the Stop button to unload all components and reset the application.
+
+Next, learn how to edit the application using the interactive graph editor.
