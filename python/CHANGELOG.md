@@ -9,6 +9,10 @@ Release Versions:
 - [1.0.1](#101)
 - [1.0.0](#100)
 
+## Upcoming changes
+
+- refactor!: use Socket.IO client instead of websockets for run-time data (#95)
+
 ## 1.2.1
 
 - Correct typehints for setting parameters (#96)

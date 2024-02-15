@@ -4,7 +4,9 @@ import os
 import requests
 import yaml
 
-from aica_api.ws_client import WebsocketSyncClient
+import importlib.metadata
+
+from aica_api.sio_client import read_until
 
 
 class AICA:
@@ -29,7 +31,6 @@ class AICA:
             raise ValueError(f'Invalid URL format {url}')
         else:
             self._address = f'http://{url}:{port}'
-            self._ws_address = f'ws://{url}:{port}'
 
     def _endpoint(self, endpoint=''):
         """
@@ -40,30 +41,37 @@ class AICA:
         """
         return f'{self._address}/v2/{endpoint}'
 
-    def _ws_endpoint(self, endpoint=''):
+    @staticmethod
+    def client_version() -> str:
         """
-        Build the connection address for a given websocket endpoint.
+        Get the version of this API client utility
 
-        :param endpoint: The websocket endpoint
-        :return: The constructed connection address
+        :return: The version of the API client
         """
-        return f'{self._ws_address}/{endpoint}'
+        return importlib.metadata.version('aica_api')
 
     def check(self) -> bool:
         """
-        Check if the API version is v2 (any v2.x.x tag)
+        Check if this API client is compatible with the detected API server version
+
+        :return: True if the client is compatible with the API server version, False otherwise
         """
-        # TODO: come up with a compatibility table in the future
         try:
             api_version = requests.get(f'{self._address}/version').json()
         except requests.exceptions.RequestException as e:
             print(f'Error connecting to the API! {e}')
             return False
-        new_version = api_version.startswith('2')
-        if not new_version:
-            print(f'The detected API version v{api_version} is older than the minimum API version v2.0.0 supported by '
-                  f'this client')
-        return new_version
+
+        if api_version.startswith('3'):
+            return True
+        elif api_version.startswith('2'):
+            print(f'The detected API version v{api_version} is older than the minimum API version v3.0.0 supported by '
+                  f'this client (v{self.client_version()}). Please install Python API client version v1.2.0 '
+                  f'for API server versions v2.X.')
+            return False
+        else:
+            print(f'The detected API version v{api_version} is deprecated and not supported by this API client!')
+            return False
 
     def component_descriptions(self) -> requests.Response:
         """
@@ -258,7 +266,20 @@ class AICA:
         endpoint = "application"
         return requests.get(self._endpoint(endpoint))
 
-    def wait_for_predicate(self, component, predicate, timeout: Union[None, int, float] = None):
+    def wait_for_component(self, component: str, state: str, timeout: Union[None, int, float] = None):
+        """
+        Wait for a component to be in a particular state. Components can be in any of the following states:
+            ['unloaded', 'loaded', 'unconfigured', 'inactive', 'active', 'finalized']
+
+        :param component: The name of the component
+        :param state: The state of the component
+        :param timeout: Timeout duration in seconds. If set to None, block indefinitely
+        :return: False if the connection times out before the component is in the intended state
+        """
+        return read_until(lambda data: data[component]['state'] == state, url=self._address, namespace='/v2/components',
+                          event='component_data', timeout=timeout)
+
+    def wait_for_predicate(self, component: str, predicate: str, timeout: Union[None, int, float] = None):
         """
         Wait until a component predicate is true.
 
@@ -267,17 +288,8 @@ class AICA:
         :param timeout: Timeout duration in seconds. If set to None, block indefinitely
         :return: False if the connection times out before the predicate is true
         """
-        component = f'{component}'
-
-        def check_predicate(data):
-            try:
-                if data[component]["predicates"][predicate]:
-                    return True
-            except KeyError:
-                return False
-
-        ws = WebsocketSyncClient(self._ws_endpoint('components'))
-        return ws.read_until(check_predicate, timeout=timeout)
+        return read_until(lambda data: data[component]["predicates"][predicate], url=self._address,
+                          namespace='/v2/components', event='component_data', timeout=timeout)
 
     def wait_for_condition(self, condition, timeout=None):
         """
@@ -287,13 +299,5 @@ class AICA:
         :param timeout: Timeout duration in seconds. If set to None, block indefinitely
         :return: False if the connection times out before the condition is true
         """
-
-        def check_condition(data):
-            try:
-                if data[condition]:
-                    return True
-            except KeyError:
-                return False
-
-        ws = WebsocketSyncClient(self._ws_endpoint('conditions'))
-        return ws.read_until(check_condition, timeout=timeout)
+        return read_until(lambda data: data[condition], url=self._address, namespace='/v2/conditions',
+                          event='conditions', timeout=timeout)
