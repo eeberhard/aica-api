@@ -1,5 +1,5 @@
 {
-  "$id": "/1-1-2/application.schema.json",
+  "$id": "/1-2-0/application.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "YAML Application Description",
   "description": "An AICA application graph description using YAML syntax.",
@@ -24,6 +24,9 @@
         "switch_controllers": {
           "$ref": "events/switch_controllers.schema.json"
         },
+        "sequence": {
+          "$ref": "events/sequence.schema.json"
+        },
         "position": {
           "$ref": "common/position.schema.json"
         }
@@ -32,14 +35,17 @@
     "hardware": {
       "$ref": "hardware.schema.json"
     },
-    "conditions": {
-      "$ref": "conditions.schema.json"
-    },
     "components": {
       "$ref": "components.schema.json"
     },
     "buttons": {
       "$ref": "buttons.schema.json"
+    },
+    "conditions": {
+      "$ref": "conditions.schema.json"
+    },
+    "sequences": {
+      "$ref": "sequences.schema.json"
     }
   }
 }
