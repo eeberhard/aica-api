@@ -10,9 +10,9 @@
  */
 export type Schema = string;
 /**
- * The version of the AICA base image
+ * The version of the AICA Core image
  */
-export type BaseVersion = string;
+export type CoreVersion = string;
 /**
  * The name of the package
  */
@@ -195,10 +195,6 @@ export type NodeNamespace = string;
  */
 export type InputTopics = string[];
 /**
- * The human-readable name to display on the button
- */
-export type ButtonDisplayName = string;
-/**
  * The human-readable name to display on the condition
  */
 export type ConditionDisplayName = string;
@@ -227,7 +223,7 @@ export type ComponentState =
 /**
  * The runtime state of the controller
  */
-export type ControllerState = "unloaded" | "loaded" | "active";
+export type ControllerState = "unloaded" | "inactive" | "active";
 /**
  * The runtime state of the hardware interface
  */
@@ -235,7 +231,7 @@ export type HardwareState = "unloaded" | "loaded";
 /**
  * The runtime state of the sequence
  */
-export type SequenceState = "inactive" | "active";
+export type SequenceState = "inactive" | "active" | "aborted";
 /**
  * True only when every listed item is true
  */
@@ -372,6 +368,10 @@ export type SequenceStep = Events | DelayStep | CheckConditionStep;
  */
 export type SequenceSteps = SequenceStep[];
 /**
+ * The human-readable name to display on the button
+ */
+export type ButtonDisplayName = string;
+/**
  * The X position of the element on the graph
  */
 export type XPosition = number;
@@ -391,17 +391,16 @@ export interface YAMLApplicationDescription {
     on_start?: OnStart;
     hardware?: HardwareInterfaces;
     components?: Components;
-    buttons?: Buttons;
     conditions?: Conditions;
     sequences?: Sequences;
     graph?: Graph;
 }
 
 /**
- * The application dependencies, including the base version and any required packages
+ * The application dependencies, including the version of AICA Core and any required packages
  */
 export interface Dependencies {
-    base: BaseVersion;
+    core: CoreVersion;
     packages?: ApplicationPackages;
 }
 
@@ -719,8 +718,11 @@ export interface ComponentStateTransitions {
     on_activate?: Events;
     on_deactivate?: Events;
     on_cleanup?: Events;
-    on_shutdown?: Events;
+    on_configure_failure?: Events;
+    on_activate_failure?: Events;
     on_error?: Events;
+    on_error_recovery?: Events;
+    on_shutdown?: Events;
     on_unload?: Events;
 }
 
@@ -729,36 +731,6 @@ export interface ComponentStateTransitions {
  */
 export interface ComponentPredicates {
     [k: string]: Events;
-}
-
-/**
- * A description of interactive buttons in the application graph
- */
-export interface Buttons {
-    [k: string]: Button;
-}
-
-/**
- * A named interactive button
- *
- * This interface was referenced by `Buttons`'s JSON-Schema definition
- * via the `patternProperty` "^[a-z]([a-z0-9_]?[a-z0-9])*$".
- */
-export interface Button {
-    display_name?: ButtonDisplayName;
-    on_click?: OnClick;
-}
-
-/**
- * Events that are triggered when the button is pressed
- */
-export interface OnClick {
-    load?: Load;
-    unload?: Unload;
-    call_service?: CallService;
-    lifecycle?: LifecycleEvent;
-    switch_controllers?: SwitchControllers;
-    set?: SetParameter;
 }
 
 /**
@@ -898,6 +870,7 @@ export interface BlockingConditionStepWithTimeout {
  * Information for the graphical representation of the application
  */
 export interface Graph {
+    buttons?: Buttons;
     positions?: {
         on_start?: Position;
         stop?: Position;
@@ -917,6 +890,37 @@ export interface Graph {
             [k: string]: Position;
         };
     };
+}
+
+/**
+ * A description of interactive buttons in the application graph
+ */
+export interface Buttons {
+    [k: string]: Button;
+}
+
+/**
+ * A named interactive button
+ *
+ * This interface was referenced by `Buttons`'s JSON-Schema definition
+ * via the `patternProperty` "^[a-z]([a-z0-9_]?[a-z0-9])*$".
+ */
+export interface Button {
+    display_name?: ButtonDisplayName;
+    on_click?: OnClick;
+}
+
+/**
+ * Events that are triggered when the button is pressed
+ */
+export interface OnClick {
+    load?: Load;
+    unload?: Unload;
+    call_service?: CallService;
+    lifecycle?: LifecycleEvent;
+    switch_controllers?: SwitchControllers;
+    set?: SetParameter;
+    sequence?: ManageSequences;
 }
 
 /**

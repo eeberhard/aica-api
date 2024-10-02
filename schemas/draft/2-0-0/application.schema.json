@@ -19,13 +19,13 @@
     },
     "dependencies": {
       "title": "Dependencies",
-      "description": "The application dependencies, including the base version and any required packages",
+      "description": "The application dependencies, including the version of AICA Core and any required packages",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "base": {
-          "title": "Base Version",
-          "description": "The version of the AICA base image",
+        "core": {
+          "title": "Core Version",
+          "description": "The version of the AICA Core image",
           "examples": [
             "v3.1.1",
             "v4.0.0"
@@ -88,7 +88,7 @@
         }
       },
       "required": [
-        "base"
+        "core"
       ]
     },
     "metadata": {
@@ -462,10 +462,19 @@
                     "on_cleanup": {
                       "$ref": "#/$defs/events"
                     },
-                    "on_shutdown": {
+                    "on_configure_failure": {
+                      "$ref": "#/$defs/events"
+                    },
+                    "on_activate_failure": {
                       "$ref": "#/$defs/events"
                     },
                     "on_error": {
+                      "$ref": "#/$defs/events"
+                    },
+                    "on_error_recovery": {
+                      "$ref": "#/$defs/events"
+                    },
+                    "on_shutdown": {
                       "$ref": "#/$defs/events"
                     },
                     "on_unload": {
@@ -482,54 +491,6 @@
                       "$ref": "#/$defs/events"
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "buttons": {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "title": "Buttons",
-      "description": "A description of interactive buttons in the application graph",
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^[a-z]([a-z0-9_]?[a-z0-9])*$": {
-          "title": "Button",
-          "description": "A named interactive button",
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "display_name": {
-              "title": "Button Display Name",
-              "description": "The human-readable name to display on the button",
-              "type": "string"
-            },
-            "on_click": {
-              "title": "On Click",
-              "description": "Events that are triggered when the button is pressed",
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "load": {
-                  "$ref": "#/$defs/events/properties/load"
-                },
-                "unload": {
-                  "$ref": "#/$defs/events/properties/unload"
-                },
-                "call_service": {
-                  "$ref": "#/$defs/events/properties/call_service"
-                },
-                "lifecycle": {
-                  "$ref": "#/$defs/events/properties/lifecycle"
-                },
-                "switch_controllers": {
-                  "$ref": "#/$defs/events/properties/switch_controllers"
-                },
-                "set": {
-                  "$ref": "#/$defs/events/properties/set"
                 }
               }
             }
@@ -685,7 +646,7 @@
                       "type": "string",
                       "enum": [
                         "unloaded",
-                        "loaded",
+                        "inactive",
                         "active"
                       ]
                     }
@@ -735,7 +696,8 @@
                       "type": "string",
                       "enum": [
                         "inactive",
-                        "active"
+                        "active",
+                        "aborted"
                       ]
                     }
                   },
@@ -963,6 +925,57 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "buttons": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "title": "Buttons",
+          "description": "A description of interactive buttons in the application graph",
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-z]([a-z0-9_]?[a-z0-9])*$": {
+              "title": "Button",
+              "description": "A named interactive button",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "display_name": {
+                  "title": "Button Display Name",
+                  "description": "The human-readable name to display on the button",
+                  "type": "string"
+                },
+                "on_click": {
+                  "title": "On Click",
+                  "description": "Events that are triggered when the button is pressed",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "load": {
+                      "$ref": "#/$defs/events/properties/load"
+                    },
+                    "unload": {
+                      "$ref": "#/$defs/events/properties/unload"
+                    },
+                    "call_service": {
+                      "$ref": "#/$defs/events/properties/call_service"
+                    },
+                    "lifecycle": {
+                      "$ref": "#/$defs/events/properties/lifecycle"
+                    },
+                    "switch_controllers": {
+                      "$ref": "#/$defs/events/properties/switch_controllers"
+                    },
+                    "set": {
+                      "$ref": "#/$defs/events/properties/set"
+                    },
+                    "sequence": {
+                      "$ref": "#/$defs/events/properties/sequence"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "positions": {
           "type": "object",
           "additionalProperties": false,
