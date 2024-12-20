@@ -495,11 +495,19 @@ The following example adds two outputs: one as a floating point number and one a
 <Tabs groupId="programming-language">
 <TabItem value="python" label="Python">
 
+:::note
+
+When using the `EncodedState` type for an output, the specific underlying state type must also be defined using the
+`MessageType` enumeration in the `clproto` library.
+
+:::
+
 ```python title="custom_component.py"
 from std_msgs.msg import Float64
 
 from modulo_core.encoded_state import EncodedState
 
+from clproto import MessageType
 from state_representation import CartesianPose
 ```
 
@@ -513,7 +521,9 @@ from state_representation import CartesianPose
         
         # bind the attribute to an output using the attribute name and message type
         self.add_output("number", "_output_number", Float64)
-        self.add_output("pose", "_output_pose", EncodedState)
+        
+        # for encoded states, further define the expected state type when binding the output
+        self.add_output("pose", "_output_pose", EncodedState, MessageType.CARTESIAN_POSE_MESSAGE)
 ```
 
 </TabItem>
