@@ -86,3 +86,8 @@ from the registry and bundled into the specific runtime image. Depending on netw
 the image has been built, launching the configuration a second time will be much faster as the results are cached.
 
 ![aica-launcher-studio](./assets/aica-launcher-studio.png)
+
+## Manual installation and launch
+
+For advanced users or users that deal with headless machines, there exists the option to [manually perform the login,
+build and launch steps](../reference/02-manual-installation-launch.md) that the AICA Launcher handles automatically.
