@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [setup, bundle-schemas]
     steps:
-      - name: Checkout branch ci/update-schemas
+      - name: Checkout branch ${{ needs.setup.branch-name.outputs.branch_name }}
         uses: actions/checkout@v3
         with:
           ref: ${{ needs.setup.branch-name.outputs.branch_name }}
