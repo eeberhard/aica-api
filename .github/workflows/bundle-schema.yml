@@ -66,9 +66,9 @@ jobs:
           MESSAGE=$(
             gh pr create \
             -B main \
-            -H ${{ needs.setup.branch-name.outputs.branch_name }} \
-            --title "ci: update schemas" \
-            --body "This PR was automatically created by GitHub actions in response to schema changes. Please review and update any impacted code before merging the changes." \
+            -H '${{ needs.setup.branch-name.outputs.branch_name }}' \
+            --title 'ci: update schemas' \
+            --body 'This PR was automatically created by GitHub actions in response to schema changes. Please review and update any impacted code before merging the changes.' \
             --reviewer eeberhard \
             2>&1
           ) || echo "::warning::Error creating the PR: $MESSAGE"
