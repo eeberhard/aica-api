@@ -26,8 +26,7 @@ runs:
         IFS='/' read -a id_array <<< "$NEW_VERSION"
         echo "version_only=${id_array[1]}" >> $GITHUB_OUTPUT
         git checkout HEAD^
-#        PREV_VERSION=$( jq -r '.["$id"]' ${{ inputs.schema-path }})
-        PREV_VERSION="0-0-0"
+        PREV_VERSION=$( jq -r '.["$id"]' ${{ inputs.schema-path }})
         echo "prev_version=${PREV_VERSION}" >> $GITHUB_OUTPUT
       shell: bash
     - uses: actions/checkout@v3
