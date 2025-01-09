@@ -24,10 +24,10 @@ runs:
         SCHEMA_ID=$(jq -r '.["$id"]' ${{ inputs.schema-path }})
         # remove the first slash
         SCHEMA_ID="${SCHEMA_ID#/*}"
-        # remove the schema name at the of the ID to leave just the version
+        # remove the schema name at the end of the ID to leave just the version
         SCHEMA_VERSION="${SCHEMA_ID%/*}"
         echo "new_schema_id=${SCHEMA_ID}" >> $GITHUB_OUTPUT
-        echo "new_schema_version=${SCHEMA_VERSION%/*}" >> $GITHUB_OUTPUT
+        echo "new_schema_version=${SCHEMA_VERSION}" >> $GITHUB_OUTPUT
         git checkout HEAD^
         PREV_SCHEMA_ID=$( jq -r '.["$id"]' ${{ inputs.schema-path }})
         # remove the first slash
