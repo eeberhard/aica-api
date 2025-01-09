@@ -41,7 +41,7 @@ jobs:
           - schema: controller
             schema-path: ./schemas/controller-descriptions/schema
           - schema: interfaces
-            schema-path: ./schemas/common_interfaces/schema
+            schema-path: ./schemas/interfaces/schema
     name: Bundle the ${{ matrix.schema }} schema
     steps:
       - name: Check out repository code
