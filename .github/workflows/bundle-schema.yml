@@ -33,7 +33,6 @@ jobs:
     needs: setup
     strategy:
       matrix:
-        schema: [application, component, controller, interfaces]
         include:
           - schema: application
             schema-path: ./schemas/applications/schema
