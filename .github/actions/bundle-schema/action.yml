@@ -57,4 +57,5 @@ runs:
         git pull
         git add .
         git diff-index --quiet HEAD || git commit -m "docs: ${{ inputs.schema }} ${{ steps.versions.outputs.version_only }}"
+        echo "Pushing commit to ${{ inputs.branch-name }}"
         git push
