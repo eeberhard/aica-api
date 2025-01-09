@@ -47,7 +47,9 @@ runs:
       shell: bash
       run: |
         node utils/bundleHelper.js ${{ inputs.schema-path }} ${{ inputs.schema }}
-        mkdir -p docs/static/schemas/${{ steps.versions.outputs.version_only }}
+        echo "Ensuring directory branch name: docs/static/schemas/${{ steps.versions.outputs.version_only }}"
+        mkdir -p docs/static/schemas${{ steps.versions.outputs.version_only }}
+        echo "Moving schema to path docs/static/schemas${{ steps.versions.outputs.new_version }}"
         mv ${{ inputs.schema }} docs/static/schemas${{ steps.versions.outputs.new_version }}
         git config --global user.name github-actions[bot]
         git config --global user.email github-actions[bot]@users.noreply.github.com
