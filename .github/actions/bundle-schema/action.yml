@@ -23,8 +23,7 @@ runs:
       run: |
         NEW_VERSION=$(jq -r '.["$id"]' ${{ inputs.schema-path }})
         echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
-        IFS='/' read -a id_array <<< "$NEW_VERSION"
-        echo "version_only=${id_array[1]}" >> $GITHUB_OUTPUT
+        echo "version_only=${NEW_VERSION%/*}" >> $GITHUB_OUTPUT
         git checkout HEAD^
         PREV_VERSION=$( jq -r '.["$id"]' ${{ inputs.schema-path }})
         echo "prev_version=${PREV_VERSION}" >> $GITHUB_OUTPUT
@@ -47,7 +46,7 @@ runs:
       shell: bash
       run: |
         node utils/bundleHelper.js ${{ inputs.schema-path }} ${{ inputs.schema }}
-        echo "Ensuring directory branch name: docs/static/schemas/${{ steps.versions.outputs.version_only }}"
+        echo "Ensuring directory branch name: docs/static/schemas${{ steps.versions.outputs.version_only }}"
         mkdir -p docs/static/schemas${{ steps.versions.outputs.version_only }}
         echo "Moving schema to path docs/static/schemas${{ steps.versions.outputs.new_version }}"
         mv ${{ inputs.schema }} docs/static/schemas${{ steps.versions.outputs.new_version }}
