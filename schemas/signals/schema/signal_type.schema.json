@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Signal Type",
+  "description": "Supported signal value types as simple atomic types or encoded state types.",
+  "anyOf": [
+    {
+      "type": "string",
+      "enum": [
+        "bool",
+        "int",
+        "double",
+        "double_array",
+        "string",
+        "other"
+      ]
+    },
+    {
+      "$ref": "https://raw.githubusercontent.com/eeberhard/aica-api/main/schemas/parameters/schema/encoded_state_type.schema.json"
+    }
+  ]
+}

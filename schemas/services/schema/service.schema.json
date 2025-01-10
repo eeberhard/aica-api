@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Service",
+  "description": "A service endpoint of a component or controller.",
+  "type": "object",
+  "properties": {
+    "display_name": {
+      "description": "The human-readable service name.",
+      "type": "string"
+    },
+    "description": {
+      "description": "A brief description of the service.",
+      "type": "string"
+    },
+    "service_name": {
+      "description": "The lower_snake_case service name as it is declared in the component or controller.",
+      "type": "string"
+    },
+    "payload_format": {
+      "description": "Optional description of the payload format if the service has a string payload. If omitted, the service is assumed to be an empty trigger.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "display_name",
+    "description",
+    "service_name"
+  ]
+}

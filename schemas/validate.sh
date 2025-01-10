@@ -39,7 +39,7 @@ FULL_PATH="$(
 )"
 FILENAME=$(basename "${FIXTURE_FILE}")
 
-IMAGE_NAME="aica-technology/api/${SCHEMA}-schema:validate"
+IMAGE_NAME="eeberhard/aica-api/${SCHEMA}-schema:validate"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 docker build -f Dockerfile --target validate --tag "${IMAGE_NAME}" "${SCRIPT_DIR}/${SCHEMA}" || exit 1

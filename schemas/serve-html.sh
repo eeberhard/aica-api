@@ -32,8 +32,8 @@ else
   exit 0
 fi
 
-IMAGE_NAME="aica-technology/api/${SCHEMA}-schema:html"
-CONTAINER_NAME="aica-technology-api-${SCHEMA}-schema-html"
+IMAGE_NAME="eeberhard/aica-api/${SCHEMA}-schema:html"
+CONTAINER_NAME="eeberhard-aica-api-${SCHEMA}-schema-html"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 docker build -f Dockerfile --target serve-html --tag "${IMAGE_NAME}" "${SCRIPT_DIR}/${SCHEMA}" || exit 1
